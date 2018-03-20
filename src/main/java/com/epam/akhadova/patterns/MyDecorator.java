@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.internal.WrapsElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.FieldDecorator;
@@ -24,19 +27,25 @@ public class MyDecorator implements FieldDecorator {
     @Override
     @SneakyThrows
     public Object decorate(ClassLoader classLoader, Field field) {
-        Field webElement = Arrays.stream(field.getType().getSuperclass().getDeclaredFields())
-                .filter(decorateField -> decorateField.getType().equals(WebElement.class))
-                .findFirst()
-                .orElseThrow(Exception::new);
+        if (!WebElement.class.isAssignableFrom(field.getType())
+                && field.getAnnotation(FindBy.class) == null
+                ) {
+            return null;
+        } else {
+            Field webElement = Arrays.stream(field.getType().getSuperclass().getDeclaredFields())
+                    .filter(decorateField -> decorateField.getType().equals(WebElement.class))
+                    .findFirst()
+                    .orElseThrow(Exception::new);
 
-        Object customElement = field.getType().getConstructor().newInstance();
+            Object customElement = field.getType().getConstructor().newInstance();
 
-        boolean flag = webElement.isAccessible();
-        webElement.setAccessible(true);
-        webElement.set(customElement, proxyForLocator(classLoader, locatorFactory.createLocator(field)));
-        webElement.setAccessible(flag);
+            boolean flag = webElement.isAccessible();
+            webElement.setAccessible(true);
+            webElement.set(customElement, proxyForLocator(classLoader, locatorFactory.createLocator(field)));
+            webElement.setAccessible(flag);
 
-        return customElement;
+            return customElement;
+        }
     }
 
     private WebElement proxyForLocator(ClassLoader loader, ElementLocator locator) {
