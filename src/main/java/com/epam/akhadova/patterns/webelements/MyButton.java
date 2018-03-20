@@ -1,4 +1,4 @@
-package com.epam.akhadova.patterns;
+package com.epam.akhadova.patterns.webelements;
 
 public class MyButton extends MyBaseElement {
 

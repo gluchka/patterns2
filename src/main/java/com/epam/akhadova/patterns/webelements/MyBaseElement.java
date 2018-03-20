@@ -1,4 +1,4 @@
-package com.epam.akhadova.patterns;
+package com.epam.akhadova.patterns.webelements;
 
 import lombok.AccessLevel;
 import lombok.Getter;
