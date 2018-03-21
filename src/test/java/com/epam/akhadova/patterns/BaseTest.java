@@ -1,6 +1,7 @@
 package com.epam.akhadova.patterns;
 
 import com.epam.akhadova.patterns.pages.ElmirHeaderForm;
+import com.epam.akhadova.patterns.pages.SearchPage;
 import com.epam.akhadova.patterns.utils.PropertyLoader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.Getter;
@@ -13,9 +14,11 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 public class BaseTest {
-    protected PropertyLoader propertyLoader = new PropertyLoader();
-    protected WebDriver driver;
-    protected ElmirHeaderForm elmirHeaderForm;
+    PropertyLoader propertyLoader = new PropertyLoader();
+    ElmirHeaderForm elmirHeaderForm;
+    SearchPage searchPage;
+    private @Getter
+    WebDriver driver;
     private @Getter
     String mainUrl = "https://elmir.ua";
 
