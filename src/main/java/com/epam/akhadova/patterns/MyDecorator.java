@@ -32,27 +32,24 @@ public class MyDecorator implements FieldDecorator {
         if (!WebElement.class.isAssignableFrom(field.getType()) && field.getAnnotation(FindBy.class) == null) {
             return null;
         } else {
+            ElementLocator locator = locatorFactory.createLocator(field);
+            if (List.class.isAssignableFrom(field.getType())) {
+                return proxyForListLocator(classLoader, locator);
+            }
             Field webElement = Arrays.stream(field.getType().getSuperclass().getDeclaredFields())
                     .filter(decorateField -> decorateField.getType().equals(WebElement.class))
                     .findFirst()
                     .orElseThrow(Exception::new);
-            customElement = field.getType().getConstructor().newInstance();
-            ElementLocator locator = locatorFactory.createLocator(field);
-
-            boolean flag = webElement.isAccessible();
-            webElement.setAccessible(true);
-            if (WebElement.class.isAssignableFrom(field.getType())) {
+            if (WebElement.class.isAssignableFrom(webElement.getType())) {
+                customElement = field.getType().getConstructor().newInstance();
+                boolean flag = webElement.isAccessible();
+                webElement.setAccessible(true);
                 webElement.set(customElement, proxyForLocator(classLoader, locator));
-            } else if (List.class.isAssignableFrom(field.getType())) {
-
-//                boolean flag = webElement.isAccessible();
-//                webElement.setAccessible(true);
-                webElement.set(customElement, proxyForListLocator(classLoader, locator));
-//                webElement.setAccessible(flag);
+                webElement.setAccessible(flag);
+                return customElement;
             }
-            webElement.setAccessible(flag);
+            return null;
         }
-        return customElement;
     }
 
 
