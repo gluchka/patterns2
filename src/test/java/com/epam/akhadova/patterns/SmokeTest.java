@@ -19,7 +19,7 @@ public class SmokeTest extends BaseTest {
 
     @Test
     public void test1() {
-        String searchFor = "Motorola";
+        String searchFor = "Samsung";
         getDriver().get(getMainUrl());
         elmirHeaderForm.search(searchFor);
         Assert.assertTrue(getDriver().getCurrentUrl().contains(searchFor));

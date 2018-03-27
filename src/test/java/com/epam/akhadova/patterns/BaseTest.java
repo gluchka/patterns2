@@ -23,13 +23,13 @@ public class BaseTest {
     String mainUrl = "https://elmir.ua";
 
     @BeforeTest
-    @Parameters
     protected void setup() {
         String browserType = propertyLoader.getProperty("browser");
         switch (browserType) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
+                driver.manage().window().maximize();
                 break;
             case "firefox":
                 DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -45,6 +45,6 @@ public class BaseTest {
 
     @AfterMethod
     protected void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 }
