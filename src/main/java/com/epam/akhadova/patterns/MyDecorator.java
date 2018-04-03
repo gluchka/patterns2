@@ -61,7 +61,7 @@ public class MyDecorator implements FieldDecorator {
         );
     }
 
-    protected List<WebElement> proxyForListLocator(ClassLoader loader, ElementLocator locator) {
+    private List<WebElement> proxyForListLocator(ClassLoader loader, ElementLocator locator) {
         InvocationHandler handler = new LocatingElementListHandler(locator);
         return (List<WebElement>) Proxy.newProxyInstance(
                 loader,
