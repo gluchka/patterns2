@@ -8,7 +8,6 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 
@@ -31,10 +30,7 @@ public class BaseTest {
                 driver.manage().window().maximize();
                 break;
             case "firefox":
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                capabilities.setBrowserName("firefox");
-                capabilities.setCapability("webdriver.firefox.driver", propertyLoader.getProperty("firefox.driver"));
-                driver = new FirefoxDriver(capabilities);
+                driver = new FirefoxDriver();
                 break;
             default:
                 WebDriverManager.chromedriver().setup();
