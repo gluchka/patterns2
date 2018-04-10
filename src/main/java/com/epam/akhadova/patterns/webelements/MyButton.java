@@ -8,8 +8,4 @@ public class MyButton extends MyBaseElement {
     public void click() {
         getWebElement().click();
     }
-
-    public String getText() {
-        return getWebElement().getText();
-    }
 }

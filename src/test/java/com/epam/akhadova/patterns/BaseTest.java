@@ -11,7 +11,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 
 public class BaseTest {
     PropertyLoader propertyLoader = new PropertyLoader();

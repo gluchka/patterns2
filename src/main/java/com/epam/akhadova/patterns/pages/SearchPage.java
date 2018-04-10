@@ -1,10 +1,12 @@
 package com.epam.akhadova.patterns.pages;
 
+import com.epam.akhadova.patterns.webelements.MyBaseElement;
+import com.epam.akhadova.patterns.webelements.MyTestElement;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,12 +17,12 @@ public class SearchPage extends ElmirMainPage {
     }
 
     @FindBy(xpath = "//div[@id='tovars']//a[@class='item-name']")
-    public List<WebElement> listOfProductNames;
+    private List<MyTestElement> listOfProductNames;
 
     public List<String> getListOfProductNames() {
         log.info("Get list of products name on a search page");
         return listOfProductNames.stream()
-                .map(WebElement::getText)
+                .map(MyBaseElement::getText)
                 .collect(Collectors.toList());
     }
 }
