@@ -26,13 +26,13 @@ public class SmokeTest extends BaseTest {
     }
 
 
-//    @Test
-//    public void test2() {
-//        String searchFor = "Motorola";
-//        getDriver().get(getMainUrl());
-//        elmirHeaderForm.search(searchFor);
-//        Assert.assertTrue(searchPage.getListOfProductNames().stream().anyMatch(name -> name.contains(searchFor)));
-//    }
+    @Test
+    public void test2() {
+        String searchFor = "Motorola";
+        getDriver().get(getMainUrl());
+        elmirHeaderForm.search(searchFor);
+        Assert.assertTrue(searchPage.getListOfProductNames().stream().anyMatch(name -> name.contains(searchFor)));
+    }
 
 
 }
